@@ -1,3 +1,18 @@
+#相关介绍:
+
+https://wenku.baidu.com/view/aa293b50336c1eb91a375d68.html
+http://blog.jobbole.com/76247/
+
+
+perl支持utf-8都这么麻烦，好想改写成python脚本。。。
+
+现在的squid改了，而网上的文档都没怎么改，还是官方文档靠谱，参数应该用url_rewrite_program而不是redirect_program
+
+还有并发的问题，虽然改成并发它还是给我只启动一个perl脚本进程（是不是因为我的），不过速度好像变快了，还不会漏了。
+
+改成并发就是url_rewrite_children 20 startup=0 idle=1 concurrency=20的concurrency，而且脚本的参数不只是url，前面有一个通道序号，要原样还给squid，注意按照官网的文档就没有问题，现在这方面的中文网页基本都已经过时了。
+
+—————————Previous Authors——————————
 Update by Weeds Qian
 Email: guozhengqian0825@126.com
 Blog: https://github.com/qianguozheng
