@@ -5,6 +5,12 @@ http://blog.jobbole.com/76247/
 
 
 perl支持utf-8都这么麻烦，好想改写成python脚本。。。
+perl折腾死我了，它作为重定向脚本总是不能打开文件写log，😭。。。。只能在url前面加字符，然后在调试squid的时候会报错，可以看到重定向的url
+
+使用-N选项来保持squid在前台运行，-d1选项在标准错误里显示1级别的调试信息。
+%sudo squid -N -d1
+
+里面还有一个cache-peer的选项，本来想假装DNS欺骗的，结果只有设置代理可以用，透明代理不能用。。。
 
 现在的squid改了，而网上的文档都没怎么改，还是官方文档靠谱，参数应该用url_rewrite_program而不是redirect_program
 
