@@ -3,10 +3,36 @@
 https://wenku.baidu.com/view/aa293b50336c1eb91a375d68.html
 http://blog.jobbole.com/76247/
 
+#使用说明
+安装squid后使用这里的配置文件（/etc/squid/squid.conf）
+并修改配置文件中的url_rewrite_program参数到下载的脚本
+目前只有两个脚本可用，你们也可以参照我的修改，主要是每一行输入的解析，和什么来着
 
+
+顺带修改下perl脚本里if判断里的主机名
+
+#可能会遇到的问题
+
+在执行squid -z，可能报如下错误：
+
+FATAL: Ipc::Mem::Segment::create failed to shm_open(/squid-cf__metadata.shm): (17) File exists
+
+针对这种错误，需要到 dev/shm/ 目录下，将所有的文件删除再重新执行。删除前，需要到任务管理器中停止squid服务。
+
+新版的mogrify可能会报错：
+/etc/ImageMagick-6/policy.xml
+ 修改配置文件/etc/ImageMagick-6/policy.xml，给coder，path赋read,write权限
+<policy domain="path" rights="read|write" pattern="@*"/>
+<policy domain="coder" rights="read|write" pattern="LABEL" />
+
+
+#其他
+
+perl我过滤了本地的计算机名，因为感觉会形成无限循环，不知道重定向自己的图片会不会还是再运行重定向脚本。。。
 perl支持utf-8都这么麻烦，好想改写成python脚本。。。
 perl折腾死我了，它作为重定向脚本总是不能打开文件写log，😭。。。。只能在url前面加字符，然后在调试squid的时候会报错，可以看到重定向的url
 
+debug时建议
 使用-N选项来保持squid在前台运行，-d1选项在标准错误里显示1级别的调试信息。
 %sudo squid -N -d1
 
